@@ -3,31 +3,31 @@
 
 > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](https://github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/10/29/unveiling-play-2-dot-1-json-api-part3-json-transformers/)
 
-Now you should know how to validate JSON and convert into any structure you can write in Scala and back to JSON. But as soon as I've begun to use those combinators to write web applications, I almost immediately encountered a case : read JSON from network, validate it and convert it into… JSON. 
+After reading the last section, you should know how to validate JSON, convert it into any Scala structure and write it back to JSON. But as soon as I started using combinators to write web applications, I almost immediately encountered an interesting case: read JSON from the network, validate it and convert it into… JSON.
 
 
 ## <a name="json-to-json">Introducing JSON _coast-to-coast_ design</a>
 
 ### <a name="doomed-to-OO">Are we doomed to convert JSON to OO?</a>
 
-For a few years now, in almost all web frameworks (except recent JS serverside stuff maybe in which JSON is the default data structure), we have been used to get JSON from network and **convert JSON (or even POST/GET data) into OO structures** such as classes (or case classes in Scala). Why?  
+For a few years now, in almost all web frameworks (except recent JS serverside stuff maybe in which JSON is the default data structure), we have gotten used to reading JSON from the network and **converting JSON (or even POST/GET data) into an OO structures** such as classes (or case classes in Scala). Why?
 
-- for a good reason : **OO structures are "language-native"** and allows **manipulating data with respect to your business logic** in a seamless way while ensuring isolation of business logic from web layers.
-- for a more questionable reason : **ORM frameworks talk to DB only with OO structures** and we have (kind of) convinced ourselves that it was impossible to do else… with the well-known good & bad features of ORMs… (not here to criticize those stuff)
+- one good reason: **OO structures are "language-native"** and they allow you to **manipulating data using your business logic** in a seamless way while ensuring isolation of the business logic from web layers.
+- a more questionable reason: **ORM frameworks expect OO structures** and we have (kind of) convinced ourselves that it was impossible to do it any other way… despite the well-known good & bad features of ORMs… (not here to criticize them)
 
 
 ### <a name="is-default-case">Is OO conversion really the default usecase?</a>
 
-**In many cases, you don't really need to perform any real business logic with data but validating/transforming before storing or after extracting.**  
+**In many cases, you don't need to perform any real business logic with data. You only need to validate/transform it before storing or after extracting.**
 
-Let's take the CRUD case: 
+Let's take the CRUD case:
 
-- You just get the data from the network, validate them a bit and insert/update into DB. 
-- In the other way, you just retrieve data from DB and send them outside.  
+- You get the data from the network, validate it a bit and insert/update into a DB.
+- In the opposite direction, you just retrieve data from the DB and send it over the network.
 
-So, generally, for CRUD ops, you convert JSON into a OO structure just because the frameworks are only able to speak OO.
+So, generally, for CRUD operations, the only reason you convert JSON into an OO structure is because frameworks are only able to speak OO.
 
->**I don't say or pretend you shouldn't use JSON to OO conversion but maybe this is not the most common case and we should keep conversion to OO only when we have real business logic to fulfill.**
+>**I'm not suggesting that you shouldn't use JSON to OO conversion but maybe it is not the common case and we should only convert to OO when we have significant business logic to fulfill.**
 
 
 ### <a name="new-players">New tech players change the way of manipulating JSON</a>
