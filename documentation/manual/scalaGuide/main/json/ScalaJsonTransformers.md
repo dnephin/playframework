@@ -27,10 +27,10 @@ Let's take the CRUD case:
 
 So, generally, for CRUD operations, the only reason you convert JSON into an OO structure is because frameworks are only able to speak OO.
 
->**I'm not suggesting that you shouldn't use JSON to OO conversion but maybe it is not the common case and we should only convert to OO when we have significant business logic to fulfill.**
+>**I'm not suggesting that you should never use JSON to OO conversion but maybe it is not the common case and we should only convert to OO when we have significant business logic to fulfill.**
 
 
-### <a name="new-players">New tech players change the way of manipulating JSON</a>
+### <a name="new-players">New technologies change the way JSON is manipulated</a>
 
 Besides this fact, we have some new DB types such as Mongo (or CouchDB) accepting document structured data looking almost like JSON trees (_isn't BSON, Binary JSON?_).  
 With these DB types, we also have new great tools such as [ReactiveMongo](http://www.reactivemongo.org) which provides reactive environment to stream data to and from Mongo in a very natural way.  
@@ -53,12 +53,12 @@ This is exactly the same case when serving data from DB:
 - filter/transform this JSON to send only mandatory data in the format expected by the client (for ex, you don't want some secure info to go out),
 - directly send JSON to the client
 
-In this context, we can easily imagine **manipulating a flow of JSON data** from client to DB and back without any (explicit) transformation in anything else than JSON.  
-Naturally, when you plug this transformation flow on **reactive infrastructure provided by Play2.1**, it suddenly opens new horizons.  
+In this context, we can easily imagine **manipulating a flow of JSON data** from client to DB and back without any (explicit) transformation in anything else than JSON.
+Naturally, when you plug this transformation flow into the **reactive infrastructure provided by Play2.1**, it suddenly opens new horizons.  
 
 > This is the so-called (by me) **JSON coast-to-coast design**: 
 > 
-> - Don't consider JSON data chunk by chunk but as a **continuous flow of data from client to DB (or else) through server**,
+> - Don't consider JSON data chunk by chunk but as a **continuous flow of data from client to DB (or another destination) through server**,
 > - Treat the **JSON flow like a pipe that you connect to others pipes** while applying modifications, transformations alongside,
 > - Treat the flow in a **fully asynchronous/non-blocking** way.
 >
